@@ -317,7 +317,8 @@
         createNestedBlock(parent, {
           uid,
           order: maxOrder + i,
-          string: `[[${name}]] at ${hhmm}: ${text}`
+          // string: `[[${name}]] at ${hhmm}: ${text}`
+          string: text
         })
 
         async function insertFile(fileid, generate) {
