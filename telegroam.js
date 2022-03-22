@@ -314,6 +314,28 @@
           }
         }
 
+        let forward_from_part = ''
+        if (message.forward_from_chat) {
+          let channel_url = `https://t.me/${message.forward_from_chat.username}`
+          forward_from_part = `__Forwarded from:__ **${message.forward_from_chat.title}** [tg channel ->](${channel_url})`
+
+          if (message.forward_from_message_id) {
+            let msg_url = `https://t.me/${message.forward_from_chat.username}/${message.forward_from_message_id}`
+            forward_from_part += ` | [tg msg ->](${msg_url})`
+          }
+        } else
+        if (message.forward_from) {
+          let user_title = (message.forward_from.first_name || '') + (message.forward_from.last_name || '')
+          forward_from_part = `__From:__ **${user_title}**`
+          if (message.forward_from.username) {
+            let user_url = `https://t.me/${message.forward_from.username}`
+            forward_from_part += ` [tg user ->](${user_url})`
+          }
+        }
+        if (forward_from_part) {
+          text = `${forward_from_part}\n${text}`
+        }
+
         createNestedBlock(parent, {
           uid,
           order: maxOrder + i,
