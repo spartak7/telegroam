@@ -377,6 +377,9 @@
         if (message.photo) {
           let fileid = message.photo[message.photo.length - 1].file_id
           await insertFile(fileid, photo)
+          createNestedBlock(uid, {
+            string: message.caption,
+          })
         }
 
         if (message.voice) {
